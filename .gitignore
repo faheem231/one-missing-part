@@ -1,0 +1,38 @@
+# Virtual Environment
+.venv/
+env/
+venv/
+ENV/
+
+# Python cache and bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Distribution / Packaging
+build/
+dist/
+*.egg-info/
+
+# Operating System files
+.DS_Store
+Thumbs.db
