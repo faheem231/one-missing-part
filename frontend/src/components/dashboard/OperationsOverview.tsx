@@ -117,7 +117,7 @@ export const OperationsOverview: React.FC<OperationsOverviewProps> = ({
               direction: 'neutral',
               label: '14-Day Cycle',
             }}
-            subtitle="Automotive Powertrain"
+            subtitle={scenario.scenarioName.split('—')[0]?.trim() || scenario.scenarioName}
           />
 
           {/* Tile 2: Critical Component Shortages */}
@@ -146,12 +146,12 @@ export const OperationsOverview: React.FC<OperationsOverviewProps> = ({
             variant="warning"
             icon={<Users className="w-5 h-5" />}
             trend={{
-              value: '4 OEMs At Risk',
+              value: `${scenario.affectedOrdersCount} Orders At Risk`,
               direction: 'down',
               isGood: false,
               label: 'Line 1 Stoppage',
             }}
-            subtitle="Apex, Nordic, Solaria, Quantum"
+            subtitle={`${scenario.affectedOrdersCount} affected customer order(s)`}
           />
 
           {/* Tile 4: Inventory Coverage */}

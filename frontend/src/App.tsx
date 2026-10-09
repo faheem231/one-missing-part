@@ -128,6 +128,8 @@ export default function App(): React.JSX.Element {
           <div id="section-strategies">
             <StrategyComparisonGrid
               strategies={data.strategies}
+              totalOrders={data.scenario.totalProductionOrders}
+              shortageComponentId={data.shortage.componentId}
               selectedStrategyId={selectedStrategyId}
               onSelectStrategy={(id) => setSelectedStrategyId(id)}
               appliedStrategyId={data.currentDecision?.status === 'APPROVED' ? data.currentDecision.strategyId : null}

@@ -14,16 +14,19 @@ export interface CriticalShortageCardProps {
 }
 
 export const CriticalShortageCard: React.FC<CriticalShortageCardProps> = ({ shortage }) => {
+  const shortageCost = shortage?.shortageCostUsd ?? 0
+  const demandList = shortage?.demandBreakdown || []
+
   return (
     <Card className="border-red-500/40 bg-[#1B1E26] shadow-card">
       <CardHeader
         action={
           <div className="flex items-center gap-2 flex-wrap">
             <Badge variant="critical" pulseDot>
-              {shortage.criticality} Shortage
+              {shortage?.criticality || 'CRITICAL'} Shortage
             </Badge>
             <Badge variant="neutral" size="sm">
-              Part ID: {shortage.componentId}
+              Part ID: {shortage?.componentId || 'COMP-MCU-01'}
             </Badge>
           </div>
         }
@@ -32,9 +35,9 @@ export const CriticalShortageCard: React.FC<CriticalShortageCardProps> = ({ shor
           <AlertTriangle className="w-4 h-4 text-red-400" />
           <span>SECTION B — CRITICAL SHORTAGE DETAILS</span>
         </div>
-        <CardTitle>{shortage.componentName}</CardTitle>
+        <CardTitle>{shortage?.componentName || 'STM32 32-bit Dual-Core Microcontroller'}</CardTitle>
         <CardDescription>
-          Category: {shortage.category} &bull; Primary Supplier: {shortage.supplierName} (Lead Time: {shortage.leadTimeDays} Days)
+          Category: {shortage?.category || 'Microcontrollers & Processors'} &bull; Primary Supplier: {shortage?.supplierName || 'SilicoTech Global Distribution Ltd'} (Lead Time: {shortage?.leadTimeDays ?? 4} Days)
         </CardDescription>
       </CardHeader>
 
@@ -45,7 +48,7 @@ export const CriticalShortageCard: React.FC<CriticalShortageCardProps> = ({ shor
           <div className="p-3.5 rounded-lg bg-[#222732] border border-[#2E343D] space-y-1">
             <span className="text-slate-400 text-[10px] block uppercase">Qty On Hand</span>
             <span className="text-lg font-bold text-white">
-              {shortage.quantityOnHand} <span className="text-xs text-slate-400 font-normal">{shortage.unit}</span>
+              {shortage?.quantityOnHand ?? 0} <span className="text-xs text-slate-400 font-normal">{shortage?.unit || 'units'}</span>
             </span>
             <span className="text-slate-500 text-[10px] block">Gross Warehouse Physical</span>
           </div>
@@ -54,7 +57,7 @@ export const CriticalShortageCard: React.FC<CriticalShortageCardProps> = ({ shor
           <div className="p-3.5 rounded-lg bg-[#222732] border border-[#2E343D] space-y-1">
             <span className="text-slate-400 text-[10px] block uppercase">Reserved Stock</span>
             <span className="text-lg font-bold text-amber-400">
-              {shortage.reservedQuantity} <span className="text-xs text-slate-400 font-normal">{shortage.unit}</span>
+              {shortage?.reservedQuantity ?? 0} <span className="text-xs text-slate-400 font-normal">{shortage?.unit || 'units'}</span>
             </span>
             <span className="text-slate-500 text-[10px] block">Allocated to Active Line</span>
           </div>
@@ -63,7 +66,7 @@ export const CriticalShortageCard: React.FC<CriticalShortageCardProps> = ({ shor
           <div className="p-3.5 rounded-lg bg-[#222732] border border-blue-500/30 space-y-1">
             <span className="text-blue-400 text-[10px] block uppercase font-semibold">Usable Stock</span>
             <span className="text-lg font-bold text-blue-400">
-              {shortage.usableStock} <span className="text-xs text-slate-400 font-normal">{shortage.unit}</span>
+              {shortage?.usableStock ?? 0} <span className="text-xs text-slate-400 font-normal">{shortage?.unit || 'units'}</span>
             </span>
             <span className="text-slate-500 text-[10px] block">Free for Dispatch</span>
           </div>
@@ -72,7 +75,7 @@ export const CriticalShortageCard: React.FC<CriticalShortageCardProps> = ({ shor
           <div className="p-3.5 rounded-lg bg-[#222732] border border-[#2E343D] space-y-1">
             <span className="text-slate-400 text-[10px] block uppercase">Required Qty</span>
             <span className="text-lg font-bold text-white">
-              {shortage.requiredQuantity} <span className="text-xs text-slate-400 font-normal">{shortage.unit}</span>
+              {shortage?.requiredQuantity ?? 0} <span className="text-xs text-slate-400 font-normal">{shortage?.unit || 'units'}</span>
             </span>
             <span className="text-slate-500 text-[10px] block">14-Day Bill of Materials</span>
           </div>
@@ -81,7 +84,7 @@ export const CriticalShortageCard: React.FC<CriticalShortageCardProps> = ({ shor
           <div className="p-3.5 rounded-lg bg-[#201518] border border-red-500/40 space-y-1">
             <span className="text-red-400 text-[10px] block uppercase font-bold">Shortage Qty</span>
             <span className="text-lg font-bold text-red-400">
-              -{shortage.shortageQuantity} <span className="text-xs text-slate-400 font-normal">{shortage.unit}</span>
+              -{shortage?.shortageQuantity ?? 0} <span className="text-xs text-slate-400 font-normal">{shortage?.unit || 'units'}</span>
             </span>
             <span className="text-red-400/70 text-[10px] block font-semibold">Immediate Deficit</span>
           </div>
@@ -90,7 +93,7 @@ export const CriticalShortageCard: React.FC<CriticalShortageCardProps> = ({ shor
           <div className="p-3.5 rounded-lg bg-[#222732] border border-[#2E343D] space-y-1">
             <span className="text-slate-400 text-[10px] block uppercase">Coverage Ratio</span>
             <span className="text-lg font-bold text-amber-400">
-              {shortage.inventoryCoveragePercentage}%
+              {shortage?.inventoryCoveragePercentage ?? 0}%
             </span>
             <span className="text-slate-500 text-[10px] block">Stock-to-Demand Ratio</span>
           </div>
@@ -104,17 +107,17 @@ export const CriticalShortageCard: React.FC<CriticalShortageCardProps> = ({ shor
             </div>
             <div>
               <span className="text-xs font-mono font-bold text-white block uppercase">
-                {shortage.costLabel}
+                {shortage?.costLabel || 'Baseline Component Deficit Financial Exposure'}
               </span>
               <p className="text-xs text-slate-400 font-sans mt-0.5">
-                Contractual OEM late-delivery penalty risk calculated across all {shortage.affectedOrdersCount} delayed work orders if line halts.
+                Contractual OEM late-delivery penalty risk calculated across all {shortage?.affectedOrdersCount ?? 0} delayed work orders if line halts.
               </p>
             </div>
           </div>
 
           <div className="text-right shrink-0">
             <span className="text-2xl font-bold font-mono text-red-400">
-              ${shortage.shortageCostUsd.toLocaleString()}
+              ${shortageCost.toLocaleString()}
             </span>
             <span className="text-[10px] font-mono text-slate-400 block">USD Estimated Penalty</span>
           </div>
@@ -130,7 +133,7 @@ export const CriticalShortageCard: React.FC<CriticalShortageCardProps> = ({ shor
               </h4>
             </div>
             <span className="text-xs font-mono text-slate-400">
-              {shortage.demandBreakdown.length} Orders Requiring CMP-8821
+              {demandList.length} Orders Requiring {shortage?.componentId || 'COMP-MCU-01'}
             </span>
           </div>
 
@@ -148,7 +151,7 @@ export const CriticalShortageCard: React.FC<CriticalShortageCardProps> = ({ shor
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#2A303C] bg-[#1B1E26]">
-                {shortage.demandBreakdown.map((row) => (
+                {demandList.map((row) => (
                   <tr key={row.orderId} className="hover:bg-[#222732]/60 transition-colors">
                     <td className="p-3 font-bold text-white">{row.orderNumber}</td>
                     <td className="p-3 text-slate-300 font-sans">{row.customerName}</td>
@@ -157,7 +160,7 @@ export const CriticalShortageCard: React.FC<CriticalShortageCardProps> = ({ shor
                     <td className="p-3 text-right text-emerald-400 font-semibold">{row.allocatedQuantity} units</td>
                     <td className="p-3 text-right text-red-400 font-bold">-{row.shortageQuantity} units</td>
                     <td className="p-3 text-center">
-                      <Badge variant="critical" size="sm">
+                      <Badge variant={row.status === 'FULFILLED' ? 'success' : row.status === 'PARTIALLY_FILLED' ? 'warning' : 'critical'} size="sm">
                         {row.status}
                       </Badge>
                     </td>
@@ -172,9 +175,9 @@ export const CriticalShortageCard: React.FC<CriticalShortageCardProps> = ({ shor
       <CardFooter className="justify-between">
         <div className="flex items-center gap-2 text-slate-400">
           <Truck className="w-4 h-4 text-cyan-400" />
-          <span>Restock Logistics: In transit via Silicon Dynamics Air Express (ETA: Day 6)</span>
+          <span>Restock Logistics: In transit via SilicoTech Expedited Freight (ETA: 4 Days)</span>
         </div>
-        <span className="text-amber-400 font-mono font-semibold">Immediate Schedule Reordering Recommended</span>
+        <span className="text-amber-400 font-mono font-semibold">Expedited Supplier Procurement Recommended</span>
       </CardFooter>
     </Card>
   )

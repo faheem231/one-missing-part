@@ -61,7 +61,7 @@ export const FeasibilityCard: React.FC<FeasibilityCardProps> = ({ feasibility })
               />
             </div>
             <span className="text-[11px] text-red-400/80 block">
-              Constrained by CMP-8821 stock deficit
+              Constrained by {feasibility.bottleneckComponentId} stock deficit
             </span>
           </div>
 

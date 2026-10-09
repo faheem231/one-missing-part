@@ -14,6 +14,8 @@ import { cn } from '@/lib/utils'
 
 export interface StrategyComparisonGridProps {
   strategies: StrategyOption[]
+  totalOrders?: number
+  shortageComponentId?: string
   selectedStrategyId: string
   onSelectStrategy: (strategyId: string) => void
   appliedStrategyId?: string | null
@@ -21,6 +23,8 @@ export interface StrategyComparisonGridProps {
 
 export const StrategyComparisonGrid: React.FC<StrategyComparisonGridProps> = ({
   strategies,
+  totalOrders = 3,
+  shortageComponentId = 'Component Shortage',
   selectedStrategyId,
   onSelectStrategy,
   appliedStrategyId,
@@ -38,7 +42,7 @@ export const StrategyComparisonGrid: React.FC<StrategyComparisonGridProps> = ({
           <Sparkles className="w-4 h-4 text-cyan-400" />
           <span>SECTION E — STRATEGY COMPARISON & RESPONSE OPTIONS</span>
         </div>
-        <CardTitle>4 Evaluated Mitigation Strategies for CMP-8821</CardTitle>
+        <CardTitle>4 Evaluated Mitigation Strategies for {shortageComponentId}</CardTitle>
         <CardDescription>
           Backend-computed response options ranked by cost, delay impact, and SLA fulfillment feasibility.
         </CardDescription>
@@ -135,7 +139,7 @@ export const StrategyComparisonGrid: React.FC<StrategyComparisonGridProps> = ({
                   <div className="p-2 rounded bg-[#14171E] border border-[#2A303C]/80 space-y-0.5">
                     <span className="text-[10px] text-slate-400 block uppercase">Orders On-Time</span>
                     <span className="text-sm font-bold text-emerald-400">
-                      {strat.ordersOnTime} / 12
+                      {strat.ordersOnTime} / {totalOrders}
                     </span>
                   </div>
 
